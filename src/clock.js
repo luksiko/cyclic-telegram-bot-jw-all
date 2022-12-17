@@ -1,6 +1,4 @@
 //OnInterval: clock_update
-require("dotenv").config();
-
 var indexRU = require('./ru/index.js')
 var indexTJ = require('./tj/index.js')
 var indexEN = require('./en/index.js')
@@ -21,7 +19,7 @@ var fifteenSeconsAfterMinute = function() {
 }
 var CronJob = require('cron').CronJob;
 new CronJob({
-    cronTime: "0 * * * *",
+    cronTime: "1 */1 * * *",
     onTick: fifteenSeconsAfterMinute,
     start: true,
     timeZone: "Asia/Dushanbe"
