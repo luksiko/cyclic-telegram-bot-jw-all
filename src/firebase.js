@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-// require("dotenv").config();
+require("dotenv").config();
 const serviceAccount = process.env;
 
 admin.initializeApp({
