@@ -1,10 +1,13 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./admin.json');
+// const serviceAccount = require('./admin.json');
+require("dotenv").config();
+var serviceAccount = process.env;
+console.log(serviceAccount);
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com/`,
-    authDomain: serviceAccount.project_id + ".firebaseapp.com",
+    credential: admin.credential.cert(JSON.parse(serviceAccount)),
+    // databaseURL: `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com/`,
+    // authDomain: serviceAccount.project_id + ".firebaseapp.com",
 });
 
 class Firebase {
