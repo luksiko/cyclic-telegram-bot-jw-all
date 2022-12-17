@@ -1,13 +1,13 @@
 {
-  "name": "heroku-telegram-bot-jw",
+  "name": "cyclic-telegram-bot-jw",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/clock.js"
+    "start": "node src/clock.js --openssl-legacy-provider"
   },
   "engines": {
-    "node": "14.15.1"
+    "node": "^18.10.0"
   },
   "keywords": [],
   "author": "",

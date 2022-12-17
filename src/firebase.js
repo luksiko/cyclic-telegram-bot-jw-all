@@ -2,12 +2,22 @@ const admin = require('firebase-admin');
 // const serviceAccount = require('./admin.json');
 require("dotenv").config();
 var serviceAccount = process.env;
-console.log(serviceAccount);
 
 admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(serviceAccount)),
-    // databaseURL: `https://${serviceAccount.project_id}-default-rtdb.firebaseio.com/`,
-    // authDomain: serviceAccount.project_id + ".firebaseapp.com",
+    credential: admin.credential.cert({
+        "type": "service_account",
+        "project_id": serviceAccount.FIREBASE_PROJECT_ID,
+        "private_key_id": serviceAccount.FIREBASE_PRIVATE_KEY_ID,
+        "private_key": serviceAccount.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        "client_email": serviceAccount.FIREBASE_CLIENT_EMAIL,
+        "client_id": serviceAccount.CLIENT_ID,
+        "auth_uri": serviceAccount.AUTH_URI,
+        "token_uri": serviceAccount.TOKEN_URI,
+        "auth_provider_x509_cert_url": serviceAccount.AUTH_PROVIDER_X509_CERT_URL,
+        "client_x509_cert_url": serviceAccount.CLIENT_X509_CERT_URL
+    }),
+    databaseURL: `https://${process.env.FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com/`,
+    authDomain: process.env.FIREBASE_PROJECT_ID + ".firebaseapp.com",
 });
 
 class Firebase {
