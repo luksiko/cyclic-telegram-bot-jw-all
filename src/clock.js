@@ -7,20 +7,6 @@ var threeSecondInterval = function(){
     indexRU();
     indexTJ();
     indexEN();
+    return true;
 }
-setInterval(threeSecondInterval, 600000)
-
-//For specific times, use a chron job
-var fifteenSeconsAfterMinute = function() {
-    indexRU();
-    indexTJ();
-    indexEN();
-    console.log("Another minute is gone forever. Hopefully, you made the most of it...");
-}
-var CronJob = require('cron').CronJob;
-new CronJob({
-    cronTime: "1 */1 * * *",
-    onTick: fifteenSeconsAfterMinute,
-    start: true,
-    timeZone: "Asia/Dushanbe"
-});
+threeSecondInterval();
