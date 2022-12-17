@@ -6,7 +6,7 @@ admin.initializeApp({
     credential: admin.credential.cert({
         "project_id": serviceAccount.FIREBASE_PROJECT_ID,
         "client_email": serviceAccount.FIREBASE_CLIENT_EMAIL,
-        "private_key": serviceAccount.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\\n')
+        "private_key": serviceAccount.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\\n'),
     }),
     databaseURL: `https://${serviceAccount.FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com/`,
     authDomain: serviceAccount.FIREBASE_PROJECT_ID + ".firebaseapp.com",
