@@ -1,0 +1,14 @@
+{
+  "published_database": "published-posts.json",
+  "firebase_path": "posts_ru",
+  "source": {
+    "feed": "https://www.jw.org/ru/whats-new/rss/WhatsNewWebArticles/feed.xml",
+    "refresh_interval": 360000,
+    "send_interval": 10000
+  },
+  "telegram": {
+    "token": "5317781568:AAGJmC1pgB95PEaGehrSmpIdZPAMAmCEbG4",
+    "channel": -1001782960519
+  },
+  "status_monitor_port": null
+}

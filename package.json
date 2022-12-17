@@ -1,0 +1,22 @@
+{
+  "name": "heroku-telegram-bot-jw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/clock.js"
+  },
+  "engines": {
+    "node": "14.15.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "firebase-admin": "^10.1.0",
+    "node-telegram-bot-api": "^0.56.0",
+    "rss-parser": "^2.10.8",
+    "sanitize-html": "^2.7.0"
+  }
+}
