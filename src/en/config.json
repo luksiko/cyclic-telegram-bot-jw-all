@@ -2,13 +2,46 @@
   "published_database": "published-posts.json",
   "firebase_path": "posts_en",
   "source": {
-    "feed": "https://www.jw.org/en/whats-new/rss/WhatsNewWebArticles/feed.xml",
-    "refresh_interval": 3600000,
+    "feed": "https://www.isa4310.com/en/whats-new/rss/WhatsNewWebArticles/feed.xml",
+    "feed_video": "https://tvrss.polosatus.ru/en",
+    "languages": {
+      "0": {
+        "language": "en",
+        "feed": "https://www.isa4310.com/en/whats-new/rss/WhatsNewWebArticles/feed.xml",
+        "feed_video": "https://tvrss.polosatus.ru/en",
+        "open_article": "Open article",
+        "telegram": {
+          "token": "5878298213:AAGB1tKVMeG8hMcCY2EzNaseShkyXkudacc",
+          "channel": -1001944523684
+        }
+      },
+      "1": {
+        "language": "ru",
+        "feed": "https://www.isa4310.com/ru/%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5/rss/WhatsNewWebArticles/feed.xml",
+        "feed_video": "https://tvrss.polosatus.ru/ru",
+        "open_article": "Открыть статью", 
+        "telegram": {
+          "token": "5878298213:AAGB1tKVMeG8hMcCY2EzNaseShkyXkudacc",
+          "channel": -1001944523684
+        }
+      },
+      "2": {
+        "language": "tj",
+        "feed": "https://www.isa4310.com/tg/%D1%87%D3%A3-%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%80%D3%A3/rss/WhatsNewWebArticles/feed.xml",
+        "feed_video": "https://tvrss.polosatus.ru/tg",
+        "open_article": "Мақоларо кушоед", 
+        "telegram": {
+          "token": "5878298213:AAGB1tKVMeG8hMcCY2EzNaseShkyXkudacc",
+          "channel": -1001944523684
+        }
+      }
+    },
+    "refresh_interval": 36000,
     "send_interval": 10000
   },
   "telegram": {
-    "token": "5337701669:AAGNRxcuSCJBx7WTalmXkwRdTQZbVhTYHIg",
-    "channel": -1001614109591
+    "token": "5878298213:AAGB1tKVMeG8hMcCY2EzNaseShkyXkudacc",
+    "channel": -1001944523684
   },
   "status_monitor_port": null,
   "open_article": "Open article"

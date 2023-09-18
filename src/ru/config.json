@@ -2,13 +2,14 @@
   "published_database": "published-posts.json",
   "firebase_path": "posts_ru",
   "source": {
-    "feed": "https://www.jw.org/ru/whats-new/rss/WhatsNewWebArticles/feed.xml",
+    "feed": "https://www.isa4310.com/ru/%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5/rss/WhatsNewWebArticles/feed.xml",
+    "feed_video": "https://tvrss.polosatus.ru/ru",
     "refresh_interval": 360000,
     "send_interval": 10000
   },
   "telegram": {
-    "token": "5317781568:AAGJmC1pgB95PEaGehrSmpIdZPAMAmCEbG4",
-    "channel": -1001782960519
+    "token": "5878298213:AAGB1tKVMeG8hMcCY2EzNaseShkyXkudacc",
+    "channel": -1001944523684
   },
   "status_monitor_port": null,
   "open_article": "Открыть статью"

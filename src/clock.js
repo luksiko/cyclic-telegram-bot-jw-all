@@ -6,5 +6,3 @@ var indexEN = require('./en/index.js');
 indexRU();
 indexTJ();
 indexEN();
-
-
