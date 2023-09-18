@@ -1,27 +1,29 @@
 let Parser = require('rss-parser');
-const config = require("./en/config.json");
+const sanitizeHtml = require("sanitize-html");
+const Firebase = require("./firebase");
+const TelegramBot = require("node-telegram-bot-api");
 let parser = new Parser();
-const instantViewStart = 't.me/iv?url=';
-const instantViewEnd = '%2F&rhash=9d32dd12d692ca';//'%2F&rhash=1406ed45adff04'; // '%2F&rhash=08ab6327085c24';
+const config = require('./config.json');
 
-const clearForMarkdown = function (text) {
-    return text.replace(/ \| /g, '\n').replace(/[_*[\]()~`>#\+\-=|{}.!]/g, '\\$&');
-};
+const SITE = config.source.site.isa4310;  // выберете сайт jw, isa4310, ps8318
+
+const clearForMarkdown = (text) => text.replace(/ \| /g, '\n').replace(/[_*[\]()~`>#\+\-=|{}.!]/g, '\\$&');
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const sendUpdate = async function (entry, config, bot, openText) {
+const sendUpdate = async function (item, config, bot, current_language) {
 
-    console.log('sendUpdate', entry.title);
+    let itemLink = 't.me/iv?url=' + item.link.slice(0, -1) + '%2F&rhash=' + SITE.hash;
 
-    let entryLink = instantViewStart + entry.link.slice(0, -1) + instantViewEnd;
+    const markdownV2Message = `*${clearForMarkdown(item.title)}*
+        [${current_language.open_article}](${clearForMarkdown(itemLink)})`;
 
-    const markdownV2Message = `
-            *${clearForMarkdown(entry.title)}*
-            [${openText}](${clearForMarkdown(entryLink)})
-        `;
+    const content = sanitizeHtml(item.content, {
+        allowedTags: ['b', 'i', 'strong', 'em', 'pre', 'code', 'a', 'img'],
+        allowedAttributes: {
+            a: ['href'],
+        },
+    });
 
-
-
-    await bot.sendMessage(config.telegram.channel,
+    await bot.sendMessage(current_language.telegram.channel,
         markdownV2Message,
         {
             parse_mode: "MarkdownV2",
@@ -29,49 +31,45 @@ const sendUpdate = async function (entry, config, bot, openText) {
         },
     );
 
-
 };
 
-exports.fetchFeed = function (config, db, bot, openText) {
+exports.fetchFeed = async function (config, current_language, languageKey) {
 
-    parser.parseURL(config.source.feed, function (error, parsed) {
+    let bot = new TelegramBot(current_language.telegram.token, {polling: false});
+    let db = new Firebase('posts_' + languageKey);
+    
+    await db.getData();
+    
+    let feedURL = SITE.url + current_language.code + current_language.whats_new + config.source.feed_end;
+    let feed = await parser.parseURL(feedURL);
 
-        (async () => {
+    for (const item of feed.items) {
 
-            let feed = await parser.parseURL(config.source.feed);
+        if (!db.isItemAlreadyParsed(item.guid)) {
 
-            for (const item of feed.items) {
-                const index = feed.items.indexOf(item);
-                console.log(item.title + ':' + item.link);
-                const entry = item;
+            try {
+                await db.addItem(item.guid);
+                console.log('Not parsed ' + item.title);
 
-
-
-                if (!db.isItemAlreadyParsed(entry.guid)) {
-
-                    try {
-                        await sendUpdate(entry, config, bot, openText);
-                        db.addItem(entry.guid);
-                    } catch (error) {
-                        if (error.response && error.response.status === 429) {
-                            const retryAfter = error.response.headers['retry-after'];
-                            console.log(`Rate limited, retrying after ${retryAfter} seconds...`);
-                            await delay(retryAfter * 1000); // Convert seconds to milliseconds
-                            await sendUpdate(entry, config, bot, openText); // Retry the request
-                        } else {
-                            console.error('Telegram API request failed:', error);
-                        }
-                    }
-
+                await sendUpdate(item, config, bot, current_language);
+            } catch (error) {
+                if (error.response && error.response.status === 429) {
+                    const retryAfter = error.response.headers['retry-after'];
+                    console.log(`Rate limited, retrying after ${retryAfter} seconds...`);
+                    await delay(retryAfter * 1000); // Convert seconds to milliseconds
+                    await sendUpdate(item, config, bot, current_language); // Retry the request
                 } else {
-                    // already parsed
-                    console.log('already parsed ' + entry.title);
+                    console.error('Telegram API request failed:', error);
                 }
-
             }
 
-            await db.writeDatabase();
-            await console.log(new Date() + ' index_ writeDatabase');
-        })();
-    });
+        } else {
+            // already parsed
+            console.log('already parsed ' + item.title);
+        }
+    }
+
+    await db.writeDatabase();
+    await console.log(new Date() + ' index_ writeDatabase');
+
 };
