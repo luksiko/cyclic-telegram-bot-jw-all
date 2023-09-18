@@ -12,9 +12,8 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const sendUpdate = async function (item, config, bot, current_language) {
 
     let itemLink = 't.me/iv?url=' + item.link.slice(0, -1) + '%2F&rhash=' + SITE.hash;
-
-    const markdownV2Message = `*${clearForMarkdown(item.title)}*
-        [${current_language.open_article}](${clearForMarkdown(itemLink)})`;
+    // символ точки как скрытая ссылка
+    const markdownV2Message = `*${clearForMarkdown(item.title)}*[.](${clearForMarkdown(itemLink)})`; 
 
     const content = sanitizeHtml(item.content, {
         allowedTags: ['b', 'i', 'strong', 'em', 'pre', 'code', 'a', 'img'],
