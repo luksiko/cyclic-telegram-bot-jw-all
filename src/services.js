@@ -13,7 +13,7 @@ const sendUpdate = async function (item, config, bot, current_language) {
 
     let itemLink = 't.me/iv?url=' + item.link.slice(0, -1) + '%2F&rhash=' + SITE.hash;
     // символ точки как скрытая ссылка
-    const markdownV2Message = `*${clearForMarkdown(item.title)}*[.](${clearForMarkdown(itemLink)})`; 
+    const markdownV2Message = `*${clearForMarkdown(item.title)}*[;](${clearForMarkdown(itemLink)})`; 
 
     const content = sanitizeHtml(item.content, {
         allowedTags: ['b', 'i', 'strong', 'em', 'pre', 'code', 'a', 'img'],
@@ -38,6 +38,7 @@ exports.fetchFeed = async function (config, current_language, languageKey) {
     let db = new Firebase('posts_' + languageKey);
     
     await db.getData();
+    await bot;
     
     let feedURL = SITE.url + current_language.code + current_language.whats_new + config.source.feed_end;
     let feed = await parser.parseURL(feedURL);
@@ -47,9 +48,8 @@ exports.fetchFeed = async function (config, current_language, languageKey) {
         if (!db.isItemAlreadyParsed(item.guid)) {
 
             try {
-                await db.addItem(item.guid);
                 console.log('Not parsed ' + item.title);
-
+                db.addItem(item.guid);
                 await sendUpdate(item, config, bot, current_language);
             } catch (error) {
                 if (error.response && error.response.status === 429) {

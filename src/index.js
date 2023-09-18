@@ -12,9 +12,7 @@ async function processLanguages() {
             let current_language = config.source.languages[languageKey];
             
             try {
-             await fetchFeed(config, current_language, languageKey).then((response) => {
-                console.log(response);
-             })
+             await fetchFeed(config, current_language, languageKey).then(() => {})
                 // Здесь вы можете обработать response, если это необходимо
             } catch (error) {
                 console.error(`Error for language ${languageKey}:`, error);
