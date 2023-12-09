@@ -29,4 +29,3 @@ async function processLanguages() {
     await setTimeoutPromise(config.source.send_interval);
     process.exit(); // Exit the Node.js process
 })();
-
