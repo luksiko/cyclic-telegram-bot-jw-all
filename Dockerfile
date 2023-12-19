@@ -11,7 +11,7 @@ COPY package*.json ./
 
 RUN npm ci
 
-COPY . .
+COPY . . 
 
 ENV PORT=3000
 
@@ -22,6 +22,6 @@ RUN npm install pm2 -g
 ENV PM2_PUBLIC_KEY pbcymyzxt7v5arh
 ENV PM2_SECRET_KEY mdeysk0t2vw2nxr
 
-CMD ["pm2-runtime", "start", "--cron", "0 * * * *", "index.js"]
+CMD ["pm2-runtime", "start", "--cron", "0 * * * *", "src/index.js"]
 
 #CMD ["npm", "start"]
