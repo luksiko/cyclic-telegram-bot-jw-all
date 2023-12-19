@@ -34,10 +34,8 @@ async function processLanguages() {
 
 // add cron job for processLanguages()
 const job = new CronJob(
-    '* * * * *', // cronTime
-    async function () {
-        await processLanguages();
-    }, // onTick
+    '0 * * * *', // cronTime
+    async () => await processLanguages(), // onTick
     null, // onComplete
     true, // start
     'America/Los_Angeles' // timeZone
