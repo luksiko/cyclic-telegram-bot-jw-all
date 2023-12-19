@@ -6,21 +6,6 @@ let parser = new Parser();
 const config = require('./config.json');
 
 const SITE = config.source.site.jw;  // выберете сайт jw, isa4310, ps8318
-const TOKEN_URI = TOKEN_URI;
-const FIREBASE_PRIVATE_KEY_ID = FIREBASE_PRIVATE_KEY_ID;
-const FIREBASE_PRIVATE_KEY = FIREBASE_PRIVATE_KEY;
-const CLIENT_ID = CLIENT_ID;
-const AUTH_URI = AUTH_URI;
-const FIREBASE_CLIENT_EMAIL = FIREBASE_CLIENT_EMAIL;
-const FIREBASE_PROJECT_ID = FIREBASE_PROJECT_ID;
-const CLIENT_X509_CERT_URL = CLIENT_X509_CERT_URL;
-const AUTH_PROVIDER_X509_CERT_URL = AUTH_PROVIDER_X509_CERT_URL;
-const CYCLIC_DB = CYCLIC_DB;
-const CYCLIC_APP_ID = CYCLIC_APP_ID;
-const CYCLIC_URL = CYCLIC_URL;
-const CYCLIC_BUCKET_NAME = CYCLIC_BUCKET_NAME;
-const MY_FIREBASE = MY_FIREBASE;
-
 
 const clearForMarkdown = (text) => text.replace(/ \| /g, '\n').replace(/[_*[\]()~`>#\+\-=|{}.!]/g, '\\$&');
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
