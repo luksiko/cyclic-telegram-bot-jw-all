@@ -26,17 +26,17 @@ async function processLanguages() {
 }
 
 // Вызываем асинхронную функцию
-// (async () => {
-    // await processLanguages();
-    // await setTimeoutPromise(config.source.send_interval);
-    // process.exit(); // Exit the Node.js process
-// })();
+(async () => {
+    await processLanguages();
+    await setTimeoutPromise(config.source.send_interval);
+    process.exit(); // Exit the Node.js process
+})();
 
 // add cron job for processLanguages()
-const job = new CronJob(
-    '0 * * * *', // cronTime
-    async () => await processLanguages(), // onTick
-    null, // onComplete
-    true, // start
-    'America/Los_Angeles' // timeZone
-);
+// const job = new CronJob(
+//     '0 * * * *', // cronTime
+//     async () => await processLanguages(), // onTick
+//     null, // onComplete
+//     true, // start
+//     'America/Los_Angeles' // timeZone
+// );
