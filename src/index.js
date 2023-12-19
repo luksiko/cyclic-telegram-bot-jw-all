@@ -34,7 +34,7 @@ async function processLanguages() {
 
 // add cron job for processLanguages()
 const job = new CronJob(
-    '40 * * * *', // cronTime
+    '* * * * *', // cronTime
     async function () {
         await processLanguages();
     }, // onTick
