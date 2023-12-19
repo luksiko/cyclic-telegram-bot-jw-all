@@ -2,7 +2,9 @@ process.env.NTBA_FIX_319 = 1;
 const config = require('./config.json');
 const { fetchFeed } = require("./services");
 const { promisify } = require('util');
+const {CronJob}  = require('cron');
 const setTimeoutPromise = promisify(setTimeout);
+
 
 
 // Объявляем асинхронную функцию для выполнения перебора
@@ -29,3 +31,14 @@ async function processLanguages() {
     await setTimeoutPromise(config.source.send_interval);
     process.exit(); // Exit the Node.js process
 })();
+
+// add cron job for processLanguages()
+// const job = new CronJob(
+//     '28 * * * *', // cronTime
+//     async function () {
+//         await processLanguages();
+//     }, // onTick
+//     null, // onComplete
+//     true, // start
+//     'America/Los_Angeles' // timeZone
+// );
